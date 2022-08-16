@@ -52,7 +52,7 @@ public class QuizRepository implements QuizRepositoryInterface{
     @Override
     public Optional<Quiz> save(Quiz quiz) {
         try {
-            saveHardwareDetails(quiz);
+            saveQuizDetails(quiz);
             return Optional.of(quiz);
         } catch (DuplicateKeyException e){
             return Optional.empty();
@@ -92,12 +92,13 @@ public class QuizRepository implements QuizRepositoryInterface{
         );
     }
 
-    private String saveHardwareDetails(Quiz quiz) {
+    private String saveQuizDetails(Quiz quiz) {
         Map<String, Object> values = new HashMap<>();
 
         values.put("code", quiz.getCode());
         values.put("name", quiz.getName());
         values.put("maker_id", quiz.getMaker().getId());
+        values.put("creation_date", quiz.getCreationDate());
 
         return inserter.executeAndReturnKey(values).toString();
     }
