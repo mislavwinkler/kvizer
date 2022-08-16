@@ -1,6 +1,6 @@
 package hr.tvz.winkler.kvizer.security;
 
-import hr.tvz.winkler.hardwareapp.security.service.JwtService;
+import hr.tvz.winkler.kvizer.security.service.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

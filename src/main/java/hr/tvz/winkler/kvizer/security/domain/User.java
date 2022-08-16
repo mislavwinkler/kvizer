@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
@@ -32,7 +33,7 @@ public class User {
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
 
-    @OneToMany(mappedBy="quiz",fetch=FetchType.LAZY)
+    @OneToMany(mappedBy="maker",fetch=FetchType.LAZY)
     private List<Quiz> quizList;
 
 
