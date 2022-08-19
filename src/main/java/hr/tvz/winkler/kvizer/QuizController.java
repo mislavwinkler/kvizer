@@ -43,4 +43,24 @@ public class QuizController {
                                 .build()
                 );
     }
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{code}")
+//    @Secured({"ROLE_ADMIN"})
+    public void delete (@PathVariable String code){
+        quizService.delete(code);
+    }
+
+    @PutMapping("/{code}")
+//    @Secured({"ROLE_ADMIN"})
+    public ResponseEntity<QuizDTO> update(@PathVariable String code,
+                                              @Valid @RequestBody final QuizCommand quizCommand){
+
+        return quizService.update(code, quizCommand).map(quizDTO -> ResponseEntity.status(HttpStatus.CREATED)
+                        .body(quizDTO))
+                .orElseGet(
+                        () -> ResponseEntity.status(HttpStatus.CONFLICT)
+                                .build()
+                );
+
+    }
 }

@@ -63,7 +63,7 @@ public class QuizRepository implements QuizRepositoryInterface{
     public Optional<Quiz> update(String code, Quiz updatedQuiz) {
         int executed = jdbc.update("UPDATE quiz set " +
                         "name = ?, " +
-                        "maker_id = ?, " +
+                        "maker_id = ? " +
                         "WHERE code = ?",
                 updatedQuiz.getName(),
                 updatedQuiz.getMaker().getId(),
@@ -79,7 +79,7 @@ public class QuizRepository implements QuizRepositoryInterface{
 
     @Override
     public void delete(String code) {
-        jdbc.update("DELETE FROM hardware WHERE code = ?", code);
+        jdbc.update("DELETE FROM quiz WHERE code = ?", code);
     }
 
     private Quiz mapRowToQuiz(ResultSet rs, int rowNum) throws SQLException {
