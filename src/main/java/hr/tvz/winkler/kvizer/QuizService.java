@@ -46,11 +46,11 @@ public class QuizService implements QuizServiceInterface{
     }
 
     private QuizDTO mapQuizToDTO(final Quiz quiz) {
-        return new QuizDTO(quiz.getCode(), quiz.getName(), quiz.getMaker().getUsername());
+        return new QuizDTO(quiz.getCode(), quiz.getName(), quiz.getCreationDate(), quiz.getMaker().getUsername());
     }
 
     private Quiz mapQuizCommandToQuiz(QuizCommand quizCommand) {
         return new Quiz(quizCommand.getCode(),quizCommand.getName(),
-                userRepository.findById(quizCommand.getMakerId()).orElse(null));
+                userRepository.findByUsername(quizCommand.getMakerName()).orElse(null));
     }
 }

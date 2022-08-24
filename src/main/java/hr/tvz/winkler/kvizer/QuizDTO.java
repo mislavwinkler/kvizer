@@ -1,16 +1,20 @@
 package hr.tvz.winkler.kvizer;
 
 
+import java.util.Date;
+
 public class QuizDTO {
 
     private final String code;
     private final String name;
+    private final Date creationDate;
     private final String makerName;
 
 
-    public QuizDTO(String code, String name, String makerName) {
+    public QuizDTO(String code, String name, Date creationDate, String makerName) {
         this.code = code;
         this.name = name;
+        this.creationDate = creationDate;
         this.makerName = makerName;
     }
 
@@ -26,10 +30,13 @@ public class QuizDTO {
         return code;
     }
 
+    public Date getCreationDate() {return creationDate;}
+
     @Override
     public String toString() {
         return "HardwareDTO{" +
                 "name='" + name + '\'' +
+                ", creationDate='" + creationDate + '\'' +
                 ", makerName=" + makerName +
                 '}';
     }

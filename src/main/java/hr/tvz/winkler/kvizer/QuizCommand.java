@@ -14,17 +14,26 @@ public class QuizCommand {
     @NotBlank(message = "Quiz must have a code")
     private String code;
 
-//    @NotBlank(message = "Date od creation is mandatory")
-//    private Date creationDate;
+    @NotNull(message = "Date od creation is mandatory")
+    private Date creationDate;
 
-    @NotNull(message = "Quiz must have a maker")
-    private Long makerId;
+    @NotBlank(message = "Quiz must have a maker")
+    private String makerName;
 
-    public QuizCommand(String name, String code, /*Date creationDate,*/ Long makerId) {
+    public QuizCommand() {
+    }
+
+    public QuizCommand(String name, String code, String makerName) {
         this.name = name;
         this.code = code;
-//        this.creationDate = creationDate;
-        this.makerId = makerId;
+        this.makerName = makerName;
+    }
+
+    public QuizCommand(String name, String code, Date creationDate, String makerName) {
+        this.name = name;
+        this.code = code;
+        this.creationDate = creationDate;
+        this.makerName = makerName;
     }
 
     public String getName() {return name;}
@@ -35,11 +44,11 @@ public class QuizCommand {
 
     public void setCode(String code) {this.code = code;}
 
-//    public Date getCreationDate() {return creationDate;}
-//
-//    public void setCreationDate(Date creationDate) {this.creationDate = creationDate;}
+    public Date getCreationDate() {return creationDate;}
 
-    public Long getMakerId() {return makerId;}
+    public void setCreationDate(Date creationDate) {this.creationDate = creationDate;}
 
-    public void setMakerId(Long makerId) {this.makerId = makerId;}
+    public String getMakerName() {return makerName;}
+
+    public void setMakerName(String makerName) {this.makerName = makerName;}
 }
