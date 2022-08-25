@@ -23,6 +23,8 @@ public class User {
 
     private String password;
 
+    private String email;
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -40,10 +42,17 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String password, Set<Authority> authorities) {
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+
+    public User(Long id, String username, String password, String email, Set<Authority> authorities) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.email = email;
         this.authorities = authorities;
     }
 
@@ -58,6 +67,10 @@ public class User {
     public String getPassword() {
         return password;
     }
+
+    public String getEmail() {return email;}
+
+    public List<Quiz> getQuizList() {return quizList;}
 
     public Set<Authority> getAuthorities() {
         return authorities;

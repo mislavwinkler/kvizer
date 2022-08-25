@@ -10,7 +10,7 @@ create table if not exists question (
     id identity,
     position bigint not null,
     question varchar(200) not null,
-    answer varchar(100)
+    answer varchar(100) not null
     );
 
 create table if not exists quiz_question (
@@ -23,7 +23,8 @@ create table if not exists quiz_question (
 create table if not exists users (
     id identity,
     username varchar(100) not null unique,
-    password varchar(1000) not null
+    password varchar(1000) not null,
+    email varchar(100)
     );
 create table if not exists authority (
     id identity,

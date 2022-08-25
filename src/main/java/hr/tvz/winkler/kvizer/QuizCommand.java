@@ -1,7 +1,5 @@
 package hr.tvz.winkler.kvizer;
 
-import org.hibernate.validator.constraints.UniqueElements;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
