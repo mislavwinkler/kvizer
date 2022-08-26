@@ -1,12 +1,9 @@
 package hr.tvz.winkler.kvizer;
 
 import hr.tvz.winkler.kvizer.security.domain.User;
-import org.hibernate.validator.constraints.UniqueElements;
-import org.springframework.data.auditing.CurrentDateTimeProvider;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -14,10 +11,8 @@ import java.util.List;
 public class Quiz {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
-    @UniqueElements
     private String code;
 
     private String name;
@@ -35,7 +30,6 @@ public class Quiz {
     public Quiz() {  }
 
     public Quiz(Integer id, String code, String name, User maker, Date creationDate) {
-        this.id = id;
         this.code = code;
         this.name = name;
         this.creationDate = creationDate;

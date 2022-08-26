@@ -80,6 +80,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     private User mapRowToUser(ResultSet rs, int rowNum) throws SQLException {
         return new User(
+                rs.getLong("id"),
                 rs.getString("username"),
                 rs.getString("password"),
                 rs.getString("email")
