@@ -34,7 +34,11 @@ public class QuestionRepository implements QuestionRepositoryInterface{
 
     @Override
     public List<Question> findQuestionsByQuizCode(String quizCode) {
-        return null;
+        return List.copyOf(jdbc.query(SELECT_ALL +
+                        " LEFT JOIN quiz_question ON  quiz_question.question_id = question.id " +
+                        "LEFT JOIN quiz ON  quiz_question.quiz_id = quiz.id " +
+                        "WHERE quiz.code = ?",
+                        this::mapRowToQuestion, quizCode));
     }
 
     @Override
