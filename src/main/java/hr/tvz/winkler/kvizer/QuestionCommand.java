@@ -6,8 +6,11 @@ import java.util.Date;
 
 public class QuestionCommand {
 
+    @NotNull(message = "Question must have an ID")
+    private Long id;
+
     @NotNull(message = "Question must have a position in quiz")
-    private Integer position;
+    private Long position;
 
     @NotBlank(message = "There must be a question")
     private String question;
@@ -15,15 +18,20 @@ public class QuestionCommand {
     @NotBlank(message = "There must be an answer")
     private String answer;
 
-    public QuestionCommand(Integer position, String question, String answer) {
+    public QuestionCommand(Long id, Long position, String question, String answer) {
+        this.id = id;
         this.position = position;
         this.question = question;
         this.answer = answer;
     }
 
-    public Integer getPosition() {return position;}
+    public Long getId() {return id;}
 
-    public void setPosition(Integer position) {this.position = position;}
+    public void setId(Long id) {this.id = id;}
+
+    public Long getPosition() {return position;}
+
+    public void setPosition(Long position) {this.position = position;}
 
     public String getQuestion() {return question;}
 

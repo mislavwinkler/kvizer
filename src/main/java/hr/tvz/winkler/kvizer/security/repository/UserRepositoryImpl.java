@@ -1,6 +1,7 @@
 package hr.tvz.winkler.kvizer.security.repository;
 
 
+import hr.tvz.winkler.kvizer.security.domain.Authority;
 import hr.tvz.winkler.kvizer.security.domain.User;
 import org.springframework.context.annotation.Primary;
 import org.springframework.dao.DuplicateKeyException;
@@ -11,10 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Primary
 @Repository
@@ -45,17 +43,6 @@ public class UserRepositoryImpl implements UserRepository {
         try{
             return Optional.ofNullable(
                     jdbc.queryForObject(SELECT_ALL + " WHERE id = ?", this::mapRowToUser, id)
-            );
-        } catch (EmptyResultDataAccessException e){
-            return Optional.empty();
-        }
-    }
-
-    @Override
-    public Optional<User> findByUsername(String username) {
-        try{
-            return Optional.ofNullable(
-                    jdbc.queryForObject(SELECT_ALL + " WHERE username = ?", this::mapRowToUser, username)
             );
         } catch (EmptyResultDataAccessException e){
             return Optional.empty();

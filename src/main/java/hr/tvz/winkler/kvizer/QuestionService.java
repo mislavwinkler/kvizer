@@ -34,22 +34,22 @@ public class QuestionService implements QuestionServiceInterface{
     }
 
     @Override
-    public void delete(String quizCode, Integer position) {
-        questionRepository.deleteQuestionByQuizCodeAndQuestionPosition(quizCode, position);
+    public void delete(Long id) {
+        questionRepository.delete(id);
     }
 
     @Override
-    public Optional<QuestionDTO> update(String quizCode, Integer questionPosition, QuestionCommand questionCommand) {
-        return questionRepository.update(quizCode, questionPosition, mapQuestionCommandToQuestion(questionCommand)).
+    public Optional<QuestionDTO> update(Long id, QuestionCommand questionCommand) {
+        return questionRepository.update(id, mapQuestionCommandToQuestion(questionCommand)).
                 map(this::mapQuestionToDTO);
     }
 
     private QuestionDTO mapQuestionToDTO(Question question) {
-        return new QuestionDTO(question.getPosition(), question.getQuestion(), question.getAnswer());
+        return new QuestionDTO(question.getId(), question.getPosition(), question.getQuestion(), question.getAnswer());
     }
 
     private Question mapQuestionCommandToQuestion(QuestionCommand questionCommand) {
-        return new Question(questionCommand.getPosition(), questionCommand.getQuestion(),
+        return new Question(questionCommand.getId(), questionCommand.getPosition(), questionCommand.getQuestion(),
                 questionCommand.getAnswer());
     }
 }

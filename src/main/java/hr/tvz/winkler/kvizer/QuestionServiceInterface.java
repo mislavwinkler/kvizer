@@ -11,8 +11,7 @@ public interface QuestionServiceInterface {
 
     Optional<QuestionDTO> save(final QuestionCommand questionCommand);
 
-    void delete(String quizCode, Integer position);
+    void delete(Long id);
 
-    Optional<QuestionDTO> update(final String code, final Integer questionPosition, final QuestionCommand questionCommand);
-
+    Optional<QuestionDTO> update(final Long id, final QuestionCommand questionCommand);
 }

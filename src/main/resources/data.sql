@@ -8,7 +8,7 @@ values ('123456', 'Prvi probni kviz', 2, CURRENT_DATE),
 insert into question (position, question, answer)
 values
        (1, 'Koje je prvo pitanje drugog probnog kviza ?', 'Ovo je prvo pitanje drugog probnog kviza'),
-       (3, 'Je li ovo treče pitanje drugog probnog kviza ?', 'Nije na pravom mjestu u bazi, ali valjda će frontend to riješiti'),
+       (3, 'Je li ovo treće pitanje drugog probnog kviza ?', 'Nije na pravom mjestu u bazi, ali valjda će frontend to riješiti'),
        (1, 'Ima li prvi probni kviz ijedno pitanje ?', 'Sada ima'),
        (2, 'Je li ovo drugo pitanje drugog probnog kviza ?', 'Da');
 

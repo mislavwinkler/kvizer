@@ -31,13 +31,12 @@ public class QuestionController {
         return questionService.findAllByQuizCode(code);
     }
 
-    @PutMapping("/{quizCode}/{questionPosition}")
+    @PutMapping("/{questionId}")
 //    @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<QuestionDTO> update(@PathVariable String quizCode,
-                                              @PathVariable Integer questionPosition,
+    public ResponseEntity<QuestionDTO> update(@PathVariable Long questionId,
                                               @Valid @RequestBody final QuestionCommand questionCommand){
 
-        return questionService.update(quizCode, questionPosition, questionCommand)
+        return questionService.update(questionId, questionCommand)
                 .map(questionDTO -> ResponseEntity.status(HttpStatus.CREATED)
                         .body(questionDTO))
                 .orElseGet(

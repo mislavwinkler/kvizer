@@ -1,6 +1,6 @@
 package hr.tvz.winkler.kvizer;
 
-import hr.tvz.winkler.kvizer.security.repository.UserRepository;
+import hr.tvz.winkler.kvizer.security.repository.UserRepositoryJPA;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,10 +10,10 @@ import java.util.stream.Collectors;
 @Service
 public class QuizService implements QuizServiceInterface{
 
-    private final UserRepository userRepository;
+    private final UserRepositoryJPA userRepository;
     private final QuizRepository quizRepository;
 
-    public QuizService(UserRepository userRepository, QuizRepository quizRepository) {
+    public QuizService(UserRepositoryJPA userRepository, QuizRepository quizRepository) {
         this.userRepository = userRepository;
         this.quizRepository = quizRepository;
     }

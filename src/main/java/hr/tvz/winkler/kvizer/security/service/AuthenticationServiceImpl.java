@@ -1,34 +1,34 @@
 package hr.tvz.winkler.kvizer.security.service;
 
-import hr.tvz.winkler.kvizer.Quiz;
-import hr.tvz.winkler.kvizer.QuizCommand;
 import hr.tvz.winkler.kvizer.security.command.LoginCommand;
 import hr.tvz.winkler.kvizer.security.command.RegisterCommand;
-import hr.tvz.winkler.kvizer.security.domain.Authority;
 import hr.tvz.winkler.kvizer.security.domain.User;
 import hr.tvz.winkler.kvizer.security.dto.LoginDTO;
 import hr.tvz.winkler.kvizer.security.dto.UserDTO;
 import hr.tvz.winkler.kvizer.security.repository.UserRepository;
+import hr.tvz.winkler.kvizer.security.repository.UserRepositoryImpl;
+import hr.tvz.winkler.kvizer.security.repository.UserRepositoryJPA;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final JwtService jwtService;
     private final UserRepository userRepository;
+    private final UserRepositoryJPA userRepositoryJPA;
 
-    public AuthenticationServiceImpl(JwtService jwtService, UserRepository userRepository) {
+    public AuthenticationServiceImpl(JwtService jwtService, UserRepositoryImpl userRepository, UserRepositoryJPA userRepositoryJPA) {
         this.jwtService = jwtService;
         this.userRepository = userRepository;
+        this.userRepositoryJPA = userRepositoryJPA;
     }
 
     @Override
     public Optional<LoginDTO> login(LoginCommand command) {
-        Optional<User> user = userRepository.findByUsername(command.getUsername());
+        Optional<User> user = userRepositoryJPA.findByUsername(command.getUsername());
 
         if (user.isEmpty() || !isMatchingPassword(command.getPassword(), user.get().getPassword())) {
             return Optional.empty();

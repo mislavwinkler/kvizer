@@ -15,7 +15,7 @@ import java.util.Optional;
 @Repository
 public class QuestionRepository implements QuestionRepositoryInterface{
 
-    private static final String SELECT_ALL = "SELECT position, question, answer FROM question";
+    private static final String SELECT_ALL = "SELECT question.id, position, question, answer FROM question";
 
     private final JdbcTemplate jdbc;
     private final SimpleJdbcInsert inserter;
@@ -47,14 +47,13 @@ public class QuestionRepository implements QuestionRepositoryInterface{
     }
 
     @Override
-    public void deleteQuestionByQuizCodeAndQuestionPosition(String quizCode, Integer position) {
+    public void delete(Long id) {
         jdbc.update("DELETE question FROM question " +
-                "LEFT JOIN quiz_question ON  quiz_question.question_id = question.id " +
-                "WHERE quiz_question.quiz_id = ? AND question.position = ?", quizCode, position);
+                "WHERE id = ?", id);
     }
 
     @Override
-    public Optional<Question> update(String quizCode, Integer oldPosition, Question updatedQuestion) {
+    public Optional<Question> update(Long id, Question updatedQuestion) {
         int executed = jdbc.update("UPDATE question " +
                         "SET question.position = ?, " +
                         "question.question = ?, " +
@@ -63,10 +62,7 @@ public class QuestionRepository implements QuestionRepositoryInterface{
                 updatedQuestion.getPosition(),
                 updatedQuestion.getQuestion(),
                 updatedQuestion.getAnswer(),
-                jdbc.queryForObject("SELECT question.id FROM question " +
-                        "LEFT JOIN quiz_question ON  quiz_question.question_id = question.id " +
-                        "LEFT JOIN quiz ON  quiz_question.quiz_id = quiz.id " +
-                        "WHERE quiz.code = ? AND question.position = ?", Integer.class, quizCode, oldPosition)
+                id
                 );
 
         if(executed > 0){
@@ -78,7 +74,8 @@ public class QuestionRepository implements QuestionRepositoryInterface{
 
     private Question mapRowToQuestion(ResultSet rs, int rowNum) throws SQLException {
         return new Question(
-                rs.getInt("position"),
+                rs.getLong("id"),
+                rs.getLong("position"),
                 rs.getString("question"),
                 rs.getString("answer")
         );

@@ -11,7 +11,7 @@ public interface QuestionRepositoryInterface{
 
     Optional<Question> save(Question question);
 
-    void deleteQuestionByQuizCodeAndQuestionPosition(String quizCode, Integer position);
+    void delete(Long id);
 
-    Optional<Question> update(String quizCode, Integer oldPosition, Question updatedQuestion);
+    Optional<Question> update(Long questionId, Question updatedQuestion);
 }
