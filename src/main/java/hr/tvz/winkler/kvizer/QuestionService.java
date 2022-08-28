@@ -39,8 +39,9 @@ public class QuestionService implements QuestionServiceInterface{
     }
 
     @Override
-    public Optional<QuestionDTO> update(String code, QuestionCommand questionCommand) {
-        return Optional.empty();
+    public Optional<QuestionDTO> update(String quizCode, Integer questionPosition, QuestionCommand questionCommand) {
+        return questionRepository.update(quizCode, questionPosition, mapQuestionCommandToQuestion(questionCommand)).
+                map(this::mapQuestionToDTO);
     }
 
     private QuestionDTO mapQuestionToDTO(Question question) {

@@ -1,11 +1,12 @@
 package hr.tvz.winkler.kvizer;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class QuestionCommand {
 
-    @NotBlank(message = "Question must have a position in quiz")
+    @NotNull(message = "Question must have a position in quiz")
     private Integer position;
 
     @NotBlank(message = "There must be a question")

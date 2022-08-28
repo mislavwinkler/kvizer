@@ -49,13 +49,31 @@ public class QuestionRepository implements QuestionRepositoryInterface{
     @Override
     public void deleteQuestionByQuizCodeAndQuestionPosition(String quizCode, Integer position) {
         jdbc.update("DELETE question FROM question " +
-                "LEFT JOIN quiz_question ON  quiz_question.question_id = question.id" +
+                "LEFT JOIN quiz_question ON  quiz_question.question_id = question.id " +
                 "WHERE quiz_question.quiz_id = ? AND question.position = ?", quizCode, position);
     }
 
     @Override
-    public Optional<Question> update(String code, Question question) {
-        return Optional.empty();
+    public Optional<Question> update(String quizCode, Integer oldPosition, Question updatedQuestion) {
+        int executed = jdbc.update("UPDATE question " +
+                        "SET question.position = ?, " +
+                        "question.question = ?, " +
+                        "question.answer = ?" +
+                        "WHERE question.id = ?",
+                updatedQuestion.getPosition(),
+                updatedQuestion.getQuestion(),
+                updatedQuestion.getAnswer(),
+                jdbc.queryForObject("SELECT question.id FROM question " +
+                        "LEFT JOIN quiz_question ON  quiz_question.question_id = question.id " +
+                        "LEFT JOIN quiz ON  quiz_question.quiz_id = quiz.id " +
+                        "WHERE quiz.code = ? AND question.position = ?", Integer.class, quizCode, oldPosition)
+                );
+
+        if(executed > 0){
+            return Optional.of(updatedQuestion);
+        } else {
+            return Optional.empty();
+        }
     }
 
     private Question mapRowToQuestion(ResultSet rs, int rowNum) throws SQLException {

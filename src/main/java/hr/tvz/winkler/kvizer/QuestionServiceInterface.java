@@ -13,6 +13,6 @@ public interface QuestionServiceInterface {
 
     void delete(String quizCode, Integer position);
 
-    Optional<QuestionDTO> update(final String code, final QuestionCommand questionCommand);
+    Optional<QuestionDTO> update(final String code, final Integer questionPosition, final QuestionCommand questionCommand);
 
 }

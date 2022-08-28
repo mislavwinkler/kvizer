@@ -13,5 +13,5 @@ public interface QuestionRepositoryInterface{
 
     void deleteQuestionByQuizCodeAndQuestionPosition(String quizCode, Integer position);
 
-    Optional<Question> update(String code, Question question);
+    Optional<Question> update(String quizCode, Integer oldPosition, Question updatedQuestion);
 }
