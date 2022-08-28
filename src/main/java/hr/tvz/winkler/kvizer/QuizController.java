@@ -26,7 +26,7 @@ public class QuizController {
 
     @GetMapping("/{code}")
 //    @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<QuizDTO> getHardwareByCode(@PathVariable final String code){
+    public ResponseEntity<QuizDTO> getQuizByCode(@PathVariable final String code){
         return quizService.findByCode(code).map(ResponseEntity::ok).orElseGet(
                 () -> ResponseEntity.notFound().build()
         );

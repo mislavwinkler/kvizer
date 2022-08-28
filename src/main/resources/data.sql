@@ -8,14 +8,16 @@ values ('123456', 'Prvi probni kviz', 2, CURRENT_DATE),
 insert into question (position, question, answer)
 values
        (1, 'Koje je prvo pitanje drugog probnog kviza ?', 'Ovo je prvo pitanje drugog probnog kviza'),
-       (2, 'Je li ovo drugo pitanje drugog probnog kviza ?', 'Da'),
-       (1, 'Ima li prvi probni kviz ijedno pitanje ?', 'Sada ima');
+       (3, 'Je li ovo treče pitanje drugog probnog kviza ?', 'Nije na pravom mjestu u bazi, ali valjda će frontend to riješiti'),
+       (1, 'Ima li prvi probni kviz ijedno pitanje ?', 'Sada ima'),
+       (2, 'Je li ovo drugo pitanje drugog probnog kviza ?', 'Da');
 
 insert into quiz_question (quiz_id, question_id)
 values
     (2, 1),
     (2, 2),
-    (1, 3);
+    (1, 3),
+    (2, 4);
 
 insert into users(username, password, email)
 values
