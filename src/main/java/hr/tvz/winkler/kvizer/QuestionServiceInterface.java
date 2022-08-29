@@ -7,6 +7,8 @@ public interface QuestionServiceInterface {
 
     List<QuestionDTO> findAll();
 
+    Optional<QuestionDTO> findById(Long id);
+
     List<QuestionDTO> findAllByQuizCode(final String quizCode);
 
     Optional<QuestionDTO> save(final QuestionCommand questionCommand);

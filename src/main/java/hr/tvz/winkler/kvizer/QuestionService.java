@@ -10,16 +10,19 @@ import java.util.stream.Collectors;
 public class QuestionService implements QuestionServiceInterface{
 
     private final QuestionRepository questionRepository;
-    private final QuizRepository quizRepository;
 
-    public QuestionService(QuestionRepository questionRepository, QuizRepository quizRepository) {
+    public QuestionService(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
-        this.quizRepository = quizRepository;
     }
 
     @Override
     public List<QuestionDTO> findAll() {
         return questionRepository.findAll().stream().map(this::mapQuestionToDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<QuestionDTO> findById(Long id) {
+        return questionRepository.findById(id).map(this::mapQuestionToDTO);
     }
 
     @Override

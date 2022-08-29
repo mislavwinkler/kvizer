@@ -30,6 +30,13 @@ public class QuestionController {
     public List<QuestionDTO> getAllQuestionByQuizCode(@PathVariable final String code) {
         return questionService.findAllByQuizCode(code);
     }
+    @GetMapping("/id={id}")
+//    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    public ResponseEntity<QuestionDTO> getQuestionById(@PathVariable final Long id) {
+        return questionService.findById(id).map(ResponseEntity::ok).orElseGet(
+                () -> ResponseEntity.notFound().build()
+        );
+    }
 
     @PutMapping("/{questionId}")
 //    @Secured({"ROLE_ADMIN"})

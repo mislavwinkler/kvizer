@@ -2,6 +2,7 @@ package hr.tvz.winkler.kvizer;
 
 
 import org.springframework.context.annotation.Primary;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -31,6 +32,18 @@ public class QuestionRepository implements QuestionRepositoryInterface{
     public List<Question> findAll() {
         return List.copyOf(jdbc.query(SELECT_ALL, this::mapRowToQuestion));
     }
+
+    @Override
+    public Optional<Question> findById(Long id) {
+        try{
+            return Optional.ofNullable(
+                    jdbc.queryForObject(SELECT_ALL + " WHERE id = ?", this::mapRowToQuestion, id)
+            );
+        } catch (EmptyResultDataAccessException e){
+            return Optional.empty();
+        }
+    }
+
 
     @Override
     public List<Question> findQuestionsByQuizCode(String quizCode) {
