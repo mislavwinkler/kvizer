@@ -27,7 +27,7 @@ public class QuestionDTO {
 
     @Override
     public String toString() {
-        return "HardwareDTO{" +
+        return "QuestionDTO{" +
                 "position='" + position + '\'' +
                 ", question=" + question +'\'' +
                 ", answer=" + answer +

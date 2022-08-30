@@ -12,7 +12,7 @@ public class Quiz {
 
     @Id
     @GeneratedValue
-    private Integer id;
+    private Long id;
 
     private String code;
 
@@ -25,12 +25,13 @@ public class Quiz {
     @JoinColumn(name="maker_Id")
     private User maker;
 
-    @ManyToMany(targetEntity = Question.class, mappedBy = "quizList")
+    @OneToMany(mappedBy="quiz",fetch=FetchType.EAGER)
     private List<Question> questionList;
 
     public Quiz() {  }
 
-    public Quiz(Integer id, String code, String name, User maker, Date creationDate) {
+    public Quiz(Long id, String code, String name, User maker, Date creationDate) {
+        this.id = id;
         this.code = code;
         this.name = name;
         this.creationDate = creationDate;
@@ -44,9 +45,9 @@ public class Quiz {
         this.maker = maker;
     }
 
-    public Integer getId() {return id;}
+    public Long getId() {return id;}
 
-    public void setId(Integer id) {this.id = id;}
+    public void setId(Long id) {this.id = id;}
 
     public String getCode() {return code;}
 

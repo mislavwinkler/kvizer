@@ -84,7 +84,7 @@ public class QuizRepository implements QuizRepositoryInterface{
 
     private Quiz mapRowToQuiz(ResultSet rs, int rowNum) throws SQLException {
         return new Quiz(
-                rs.getInt("id"),
+                rs.getLong("id"),
                 rs.getString("code"),
                 rs.getString("name"),
                 userRepository.findById(rs.getLong("maker_id")).orElse(null),

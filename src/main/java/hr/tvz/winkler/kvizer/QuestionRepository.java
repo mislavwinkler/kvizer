@@ -19,19 +19,16 @@ import java.util.Optional;
 @Repository
 public class QuestionRepository implements QuestionRepositoryInterface{
 
-    private static final String SELECT_ALL = "SELECT question.id, position, question, answer FROM question";
+    private static final String SELECT_ALL = "SELECT * FROM question";
 
     private final JdbcTemplate jdbc;
     private final SimpleJdbcInsert inserter;
-    private final SimpleJdbcInsert inserterQuizQuestion;
 
     public QuestionRepository(JdbcTemplate jdbc) {
         this.jdbc = jdbc;
         this.inserter = new SimpleJdbcInsert(jdbc)
                 .withTableName("question")
                 .usingGeneratedKeyColumns("id");
-        this.inserterQuizQuestion = new SimpleJdbcInsert(jdbc)
-                .withTableName("quiz_question");
     }
 
     @Override
@@ -54,8 +51,7 @@ public class QuestionRepository implements QuestionRepositoryInterface{
     @Override
     public List<Question> findQuestionsByQuizCode(String quizCode) {
         return List.copyOf(jdbc.query(SELECT_ALL +
-                        " LEFT JOIN quiz_question ON  quiz_question.question_id = question.id " +
-                        "LEFT JOIN quiz ON  quiz_question.quiz_id = quiz.id " +
+                        " LEFT JOIN quiz ON question.quiz_id = quiz.id " +
                         "WHERE quiz.code = ?",
                         this::mapRowToQuestion, quizCode));
     }
@@ -101,7 +97,8 @@ public class QuestionRepository implements QuestionRepositoryInterface{
                 rs.getLong("id"),
                 rs.getLong("position"),
                 rs.getString("question"),
-                rs.getString("answer")
+                rs.getString("answer"),
+                rs.getString("img_path")
         );
     }
 
@@ -111,10 +108,9 @@ public class QuestionRepository implements QuestionRepositoryInterface{
         values.put("question", question.getQuestion());
         values.put("answer", question.getAnswer());
         values.put("position", question.getPosition());
+        values.put("img_path", question.getImgPath());
+        values.put("quiz_id", question.getQuiz().getId());
 
-        Number key = inserter.executeAndReturnKey(values);
-        inserterQuizQuestion.execute(new HashMap<>(){{put("quiz_id", 2); put("question_id", key);}});
-
-        return key.toString();
+        return inserter.executeAndReturnKey(values).toString();
     }
 }

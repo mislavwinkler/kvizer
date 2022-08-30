@@ -10,9 +10,11 @@ import java.util.stream.Collectors;
 public class QuestionService implements QuestionServiceInterface{
 
     private final QuestionRepository questionRepository;
+    private final QuizRepository quizRepository;
 
-    public QuestionService(QuestionRepository questionRepository) {
+    public QuestionService(QuestionRepository questionRepository, QuizRepository quizRepository) {
         this.questionRepository = questionRepository;
+        this.quizRepository = quizRepository;
     }
 
     @Override
@@ -53,6 +55,6 @@ public class QuestionService implements QuestionServiceInterface{
 
     private Question mapQuestionCommandToQuestion(QuestionCommand questionCommand) {
         return new Question(questionCommand.getId(), questionCommand.getPosition(), questionCommand.getQuestion(),
-                questionCommand.getAnswer());
+                questionCommand.getAnswer(), questionCommand.getImgPath(), quizRepository.findByCode(questionCommand.getquizCode()).get());
     }
 }

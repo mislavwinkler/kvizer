@@ -10,15 +10,11 @@ create table if not exists question (
     id identity,
     position bigint not null,
     question varchar(200) not null,
-    answer varchar(100) not null
-    );
-
-create table if not exists quiz_question (
+    answer varchar(100) not null,
+    img_path varchar(200),
     quiz_id bigint not null,
-    question_id bigint not null,
-    constraint fk_quiz foreign key (quiz_id) references quiz(id) on delete cascade ,
-    constraint fk_question foreign key (question_id) references question(id) on delete cascade
-);
+    constraint fk_quiz foreign key (quiz_id) references quiz(id) on delete cascade
+    );
 
 create table if not exists users (
     id identity,

@@ -1,10 +1,6 @@
 package hr.tvz.winkler.kvizer;
 
-import hr.tvz.winkler.kvizer.security.domain.Authority;
-import org.hibernate.annotations.BatchSize;
-
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class Question {
@@ -15,22 +11,29 @@ public class Question {
     private Long position;
     private String question;
     private String answer;
+    private String imgPath;
 
-    @ManyToMany
-    @JoinTable(
-            name = "quiz_question",
-            joinColumns = {@JoinColumn(name = "question_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "quiz_id", referencedColumnName = "id")}
-    )
-    private List<Quiz> quizList;
+    @ManyToOne
+    @JoinColumn(name="quiz_id")
+    private Quiz quiz;
 
     public Question() { }
 
-    public Question(Long id, Long position, String question, String answer) {
+    public Question(Long id, Long position, String question, String answer, String imgPath) {
         this.id = id;
         this.position = position;
         this.question = question;
         this.answer = answer;
+        this.imgPath = imgPath;
+    }
+
+    public Question(Long id, Long position, String question, String answer, String imgPath, Quiz quiz) {
+        this.id = id;
+        this.position = position;
+        this.question = question;
+        this.answer = answer;
+        this.imgPath = imgPath;
+        this.quiz = quiz;
     }
 
     public Long getId() {
@@ -63,11 +66,17 @@ public class Question {
         this.answer = answer;
     }
 
-    public List<Quiz> getQuizList() {
-        return quizList;
+    public String getImgPath() {return imgPath;}
+
+    public void setImgPath(String imgPath) {this.imgPath = imgPath;}
+
+    public void setQuiz(Quiz quiz) {this.quiz = quiz;}
+
+    public Quiz getQuiz() {
+        return quiz;
     }
 
-    public void setQuizList(List<Quiz> quizList) {
-        this.quizList = quizList;
+    public void setQuizList(Quiz quiz) {
+        this.quiz = quiz;
     }
 }
