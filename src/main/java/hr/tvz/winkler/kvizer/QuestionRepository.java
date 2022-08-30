@@ -2,6 +2,7 @@ package hr.tvz.winkler.kvizer;
 
 
 import org.springframework.context.annotation.Primary;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -9,7 +10,9 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Primary
@@ -20,12 +23,15 @@ public class QuestionRepository implements QuestionRepositoryInterface{
 
     private final JdbcTemplate jdbc;
     private final SimpleJdbcInsert inserter;
+    private final SimpleJdbcInsert inserterQuizQuestion;
 
     public QuestionRepository(JdbcTemplate jdbc) {
         this.jdbc = jdbc;
         this.inserter = new SimpleJdbcInsert(jdbc)
                 .withTableName("question")
                 .usingGeneratedKeyColumns("id");
+        this.inserterQuizQuestion = new SimpleJdbcInsert(jdbc)
+                .withTableName("quiz_question");
     }
 
     @Override
@@ -56,7 +62,12 @@ public class QuestionRepository implements QuestionRepositoryInterface{
 
     @Override
     public Optional<Question> save(Question question) {
-        return Optional.empty();
+        try {
+            saveQuestionDetails(question);
+            return Optional.of(question);
+        } catch (DuplicateKeyException e){
+            return Optional.empty();
+        }
     }
 
     @Override
@@ -92,5 +103,18 @@ public class QuestionRepository implements QuestionRepositoryInterface{
                 rs.getString("question"),
                 rs.getString("answer")
         );
+    }
+
+    private String saveQuestionDetails(Question question) {
+        Map<String, Object> values = new HashMap<>();
+
+        values.put("question", question.getQuestion());
+        values.put("answer", question.getAnswer());
+        values.put("position", question.getPosition());
+
+        Number key = inserter.executeAndReturnKey(values);
+        inserterQuizQuestion.execute(new HashMap<>(){{put("quiz_id", 2); put("question_id", key);}});
+
+        return key.toString();
     }
 }

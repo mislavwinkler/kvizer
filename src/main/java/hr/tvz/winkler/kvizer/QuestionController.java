@@ -37,6 +37,17 @@ public class QuestionController {
                 () -> ResponseEntity.notFound().build()
         );
     }
+    @PostMapping
+//    @Secured({"ROLE_ADMIN"})
+    public ResponseEntity<QuestionDTO> save(@Valid @RequestBody final QuestionCommand questionCommand){
+        return questionService.save(questionCommand)
+                .map(quizDTO -> ResponseEntity.status(HttpStatus.CREATED)
+                        .body(quizDTO))
+                .orElseGet(
+                        () -> ResponseEntity.status(HttpStatus.CONFLICT)
+                                .build()
+                );
+    }
 
     @PutMapping("/{questionId}")
 //    @Secured({"ROLE_ADMIN"})
