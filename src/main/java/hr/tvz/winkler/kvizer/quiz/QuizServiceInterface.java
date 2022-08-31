@@ -1,4 +1,4 @@
-package hr.tvz.winkler.kvizer;
+package hr.tvz.winkler.kvizer.quiz;
 
 import java.util.List;
 import java.util.Optional;

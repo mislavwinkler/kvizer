@@ -1,8 +1,7 @@
-package hr.tvz.winkler.kvizer;
+package hr.tvz.winkler.kvizer.question;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -49,12 +48,11 @@ public class QuestionController {
                 );
     }
 
-    @PutMapping("/{questionId}")
+    @PutMapping
 //    @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<QuestionDTO> update(@PathVariable Long questionId,
-                                              @Valid @RequestBody final QuestionCommand questionCommand){
+    public ResponseEntity<QuestionDTO> update(@Valid @RequestBody final QuestionCommand questionCommand){
 
-        return questionService.update(questionId, questionCommand)
+        return questionService.update(questionCommand.getId(), questionCommand)
                 .map(questionDTO -> ResponseEntity.status(HttpStatus.CREATED)
                         .body(questionDTO))
                 .orElseGet(

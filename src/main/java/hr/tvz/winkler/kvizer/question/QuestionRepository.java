@@ -1,6 +1,7 @@
-package hr.tvz.winkler.kvizer;
+package hr.tvz.winkler.kvizer.question;
 
 
+import hr.tvz.winkler.kvizer.quiz.QuizRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -23,12 +24,14 @@ public class QuestionRepository implements QuestionRepositoryInterface{
 
     private final JdbcTemplate jdbc;
     private final SimpleJdbcInsert inserter;
+    private final QuizRepository quizRepository;
 
-    public QuestionRepository(JdbcTemplate jdbc) {
+    public QuestionRepository(JdbcTemplate jdbc, QuizRepository quizRepository) {
         this.jdbc = jdbc;
         this.inserter = new SimpleJdbcInsert(jdbc)
                 .withTableName("question")
                 .usingGeneratedKeyColumns("id");
+        this.quizRepository = quizRepository;
     }
 
     @Override
@@ -98,7 +101,8 @@ public class QuestionRepository implements QuestionRepositoryInterface{
                 rs.getLong("position"),
                 rs.getString("question"),
                 rs.getString("answer"),
-                rs.getString("img_path")
+                rs.getString("img_path"),
+                quizRepository.findById(Long.valueOf(rs.getString("quiz_id"))).get()
         );
     }
 

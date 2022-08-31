@@ -1,5 +1,6 @@
-package hr.tvz.winkler.kvizer;
+package hr.tvz.winkler.kvizer.quiz;
 
+import hr.tvz.winkler.kvizer.question.Question;
 import hr.tvz.winkler.kvizer.security.domain.User;
 
 import javax.persistence.*;

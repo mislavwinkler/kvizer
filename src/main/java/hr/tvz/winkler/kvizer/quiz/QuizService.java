@@ -1,4 +1,4 @@
-package hr.tvz.winkler.kvizer;
+package hr.tvz.winkler.kvizer.quiz;
 
 import hr.tvz.winkler.kvizer.security.repository.UserRepositoryJPA;
 import org.springframework.stereotype.Service;

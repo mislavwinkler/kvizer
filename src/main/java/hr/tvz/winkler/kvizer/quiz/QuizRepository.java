@@ -1,4 +1,4 @@
-package hr.tvz.winkler.kvizer;
+package hr.tvz.winkler.kvizer.quiz;
 
 import hr.tvz.winkler.kvizer.security.repository.UserRepository;
 import org.springframework.context.annotation.Primary;
@@ -36,6 +36,17 @@ public class QuizRepository implements QuizRepositoryInterface{
     @Override
     public List<Quiz> findAll() {
         return List.copyOf(jdbc.query(SELECT_ALL, this::mapRowToQuiz));
+    }
+
+    @Override
+    public Optional<Quiz> findById(Long id) {
+        try{
+            return Optional.ofNullable(
+                    jdbc.queryForObject(SELECT_ALL + " WHERE id = ?", this::mapRowToQuiz, id)
+            );
+        } catch (EmptyResultDataAccessException e){
+            return Optional.empty();
+        }
     }
 
     @Override

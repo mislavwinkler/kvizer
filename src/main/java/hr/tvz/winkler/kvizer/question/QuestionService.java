@@ -1,5 +1,6 @@
-package hr.tvz.winkler.kvizer;
+package hr.tvz.winkler.kvizer.question;
 
+import hr.tvz.winkler.kvizer.quiz.QuizRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

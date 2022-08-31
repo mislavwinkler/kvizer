@@ -1,5 +1,6 @@
 delete from quiz;
 delete from question;
+delete from answer;
 
 insert into quiz (code, name, maker_id, creation_date)
 values ('123456', 'Prvi probni kviz', 2, CURRENT_DATE),
@@ -27,3 +28,7 @@ insert into user_authority (user_id, authority_id)
 values
     (1, 2),
     (2, 1);
+
+insert into answer (answer, question_id, user_id)
+values ('Ovo je prvi odgovor ikad dan u ovoj aplikaciji', 2, 1),
+       ('Drugi odgovor u ovoj aplikaciji, ali na prvo pitanje (drugog kviza)', 1, 1);

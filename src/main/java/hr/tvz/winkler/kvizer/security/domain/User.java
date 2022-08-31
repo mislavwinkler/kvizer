@@ -2,7 +2,7 @@ package hr.tvz.winkler.kvizer.security.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import hr.tvz.winkler.kvizer.Quiz;
+import hr.tvz.winkler.kvizer.quiz.Quiz;
 import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
