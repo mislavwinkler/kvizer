@@ -2,7 +2,8 @@ package hr.tvz.winkler.kvizer.answer;
 
 
 import hr.tvz.winkler.kvizer.question.QuestionRepository;
-import hr.tvz.winkler.kvizer.security.repository.UserRepository;
+import hr.tvz.winkler.kvizer.security.domain.User;
+import hr.tvz.winkler.kvizer.security.repository.UserRepositoryImpl;
 import org.springframework.context.annotation.Primary;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -26,9 +27,9 @@ public class AnswerRepository implements AnswerRepositoryInterface {
     private final JdbcTemplate jdbc;
     private final SimpleJdbcInsert inserter;
     private final QuestionRepository questionRepository;
-    private final UserRepository userRepository;
+    private final UserRepositoryImpl userRepository;
 
-    public AnswerRepository(JdbcTemplate jdbc, QuestionRepository questionRepository, UserRepository userRepository) {
+    public AnswerRepository(JdbcTemplate jdbc, QuestionRepository questionRepository, UserRepositoryImpl userRepository) {
         this.jdbc = jdbc;
         this.inserter = new SimpleJdbcInsert(jdbc)
                 .withTableName("answer")
@@ -40,6 +41,16 @@ public class AnswerRepository implements AnswerRepositoryInterface {
     @Override
     public List<Answer> findAll() {
         return List.copyOf(jdbc.query(SELECT_ALL, this::mapRowToAnswer));
+    }
+
+    @Override
+    public List<User> findAllUsersThatAnsweredByQuizCode(String code){
+        return List.copyOf(jdbc.query("SELECT DISTINCT users.* FROM answer " +
+                        "LEFT JOIN question ON question.id = answer.question_id " +
+                        "LEFT JOIN quiz ON question.quiz_id = quiz.id " +
+                        "LEFT JOIN users ON answer.user_id = users.id " +
+                        "WHERE quiz.code = ?",
+                 this::mapRowToUser, code));
     }
 
     @Override
@@ -63,11 +74,14 @@ public class AnswerRepository implements AnswerRepositoryInterface {
     }
 
     @Override
-    public List<Answer> findAnswersByUserUsername(String userName) {
+    public List<Answer> findAnswersByQuizCodeAndUsername(String quizCode, String userName) {
         return List.copyOf(jdbc.query(SELECT_ALL +
                         " LEFT JOIN users ON answer.user_id = users.id " +
-                        "WHERE users.username = ?",
-                this::mapRowToAnswer, userName));
+                        "LEFT JOIN question ON answer.question_id = question.id " +
+                        "LEFT JOIN quiz ON question.quiz_id = quiz.id " +
+                        "WHERE users.username = ? AND quiz.code = ? "+
+                        "ORDER BY question.position",
+                this::mapRowToAnswer, userName, quizCode));
     }
 
     @Override
@@ -112,6 +126,15 @@ public class AnswerRepository implements AnswerRepositoryInterface {
                 rs.getString("answer"),
                 questionRepository.findById(rs.getLong("question_id")).get(),
                 userRepository.findById(rs.getLong("user_id")).get()
+        );
+    }
+
+    private User mapRowToUser(ResultSet rs, int rowNum) throws SQLException {
+        return new User(
+                rs.getLong("id"),
+                rs.getString("username"),
+                rs.getString("password"),
+                rs.getString("email")
         );
     }
 

@@ -51,7 +51,7 @@ public class QuestionService implements QuestionServiceInterface{
     }
 
     private QuestionDTO mapQuestionToDTO(Question question) {
-        return new QuestionDTO(question.getId(), question.getPosition(), question.getQuestion(), question.getAnswer());
+        return new QuestionDTO(question.getId(), question.getPosition(), question.getQuestion(), question.getAnswer(), question.getImgPath(), question.getQuiz().getCode());
     }
 
     private Question mapQuestionCommandToQuestion(QuestionCommand questionCommand) {

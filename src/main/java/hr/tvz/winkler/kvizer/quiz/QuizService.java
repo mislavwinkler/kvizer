@@ -25,6 +25,11 @@ public class QuizService implements QuizServiceInterface{
     }
 
     @Override
+    public List<QuizDTO> findAllByMaker(String username) {
+        return quizRepository.findAllByMaker(username).stream().map(this::mapQuizToDTO).collect(Collectors.toList());
+    }
+
+    @Override
     public Optional<QuizDTO> findByCode(String code) {
         return quizRepository.findByCode(code).map(this::mapQuizToDTO);
     }

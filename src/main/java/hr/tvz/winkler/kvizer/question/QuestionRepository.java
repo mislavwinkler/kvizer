@@ -71,8 +71,7 @@ public class QuestionRepository implements QuestionRepositoryInterface{
 
     @Override
     public void delete(Long id) {
-        jdbc.update("DELETE question FROM question " +
-                "WHERE id = ?", id);
+        jdbc.update("DELETE FROM question WHERE id = ?", id);
     }
 
     @Override

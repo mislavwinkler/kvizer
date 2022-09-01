@@ -1,6 +1,8 @@
 package hr.tvz.winkler.kvizer.answer;
 
 import hr.tvz.winkler.kvizer.question.*;
+import hr.tvz.winkler.kvizer.security.domain.User;
+import hr.tvz.winkler.kvizer.security.dto.UserDTO;
 import hr.tvz.winkler.kvizer.security.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,11 @@ public class AnswerService implements AnswerServiceInterface {
     }
 
     @Override
+    public List<UserDTO> findUsersByQuizCode(String code) {
+        return answerRepository.findAllUsersThatAnsweredByQuizCode(code).stream().map(this::mapUserToDTO).collect(Collectors.toList());
+    }
+
+    @Override
     public Optional<AnswerDTO> findById(Long id) {
         return answerRepository.findById(id).map(this::mapAnswerToDTO);
     }
@@ -36,8 +43,8 @@ public class AnswerService implements AnswerServiceInterface {
         return answerRepository.findAnswersByQuestionId(questionId).stream().map(this::mapAnswerToDTO).collect(Collectors.toList());
     }
     @Override
-    public List<AnswerDTO> findAllByUserUsername(String userName) {
-        return answerRepository.findAnswersByUserUsername(userName).stream().map(this::mapAnswerToDTO).collect(Collectors.toList());
+    public List<AnswerDTO> findAllByQuizCodeAndUsername(String quizCode, String username) {
+        return answerRepository.findAnswersByQuizCodeAndUsername(quizCode, username).stream().map(this::mapAnswerToDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -59,6 +66,10 @@ public class AnswerService implements AnswerServiceInterface {
 
     private AnswerDTO mapAnswerToDTO(Answer answer) {
         return new AnswerDTO(answer.getId(), answer.getAnswer(), answer.getQuestion().getId(), answer.getUser().getUsername());
+    }
+
+    private UserDTO mapUserToDTO(User user) {
+        return new UserDTO(user.getUsername());
     }
 
     private Answer mapAnswerCommandToQuestion(AnswerCommand answerCommand) {

@@ -17,7 +17,8 @@ values
 insert into users(username, password, email)
 values
     ('user', '$2a$12$PWh2Tlwhmgc3V8HhnNFQke2cEVHw85ipZCX1.5aBgdJYG2i7OVNqy', 'user@email.com'), -- password = user
-    ('admin', '$2a$12$INo0nbj40sQrTB7b28KJput/bNltGmFyCfRsUhvy73qcXo5/XdsTG', 'admin@email.com'); -- password = admin
+    ('admin', '$2a$12$INo0nbj40sQrTB7b28KJput/bNltGmFyCfRsUhvy73qcXo5/XdsTG', 'admin@email.com'), -- password = admin
+    ('pero', '$2a$12$PWh2Tlwhmgc3V8HhnNFQke2cEVHw85ipZCX1.5aBgdJYG2i7OVNqy', 'pero@email.com'); -- password = user
 
 insert into authority (id, authority_name)
 values
@@ -27,8 +28,13 @@ values
 insert into user_authority (user_id, authority_id)
 values
     (1, 2),
-    (2, 1);
+    (2, 1),
+    (3, 2);
 
 insert into answer (answer, question_id, user_id)
-values ('Ovo je prvi odgovor ikad dan u ovoj aplikaciji', 2, 1),
-       ('Drugi odgovor u ovoj aplikaciji, ali na prvo pitanje (drugog kviza)', 1, 1);
+values  ('Ovo je prvi odgovor ikad dan u ovoj aplikaciji, na treće pitanje', 2, 2),
+        ('Drugi odgovor u ovoj aplikaciji, ali na prvo pitanje (drugog kviza)', 1, 2),
+        ('Treći odgovor u ovoj aplikaciji, na 2. pitanje', 4, 2),
+        ('Perin odgovor na treće pitanje', 2, 3),
+        ('Perin odgovor na prvo pitanje (drugog kviza)', 1, 3),
+        ('Perin odgovor na 2. pitanje', 4, 3);

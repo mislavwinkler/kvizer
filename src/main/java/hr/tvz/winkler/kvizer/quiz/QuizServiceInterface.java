@@ -7,6 +7,8 @@ public interface QuizServiceInterface {
 
     List<QuizDTO> findAll();
 
+    List<QuizDTO> findAllByMaker(String username);
+
     Optional<QuizDTO> findByCode(final String code);
 
     Optional<QuizDTO> save(final QuizCommand quizCommand);

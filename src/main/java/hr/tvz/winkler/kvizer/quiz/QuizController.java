@@ -22,6 +22,11 @@ public class QuizController {
         return quizService.findAll();
     }
 
+    @GetMapping("/maker={username}")
+//    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    public List<QuizDTO> getAllQuiz(@PathVariable final String username){
+        return quizService.findAllByMaker(username);
+    }
 
     @GetMapping("/{code}")
 //    @Secured({"ROLE_USER", "ROLE_ADMIN"})

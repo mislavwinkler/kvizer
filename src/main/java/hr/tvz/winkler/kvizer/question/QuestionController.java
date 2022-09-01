@@ -59,6 +59,12 @@ public class QuestionController {
                         () -> ResponseEntity.status(HttpStatus.CONFLICT)
                                 .build()
                 );
+    }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+//    @Secured({"ROLE_ADMIN"})
+    public void delete (@PathVariable Long id){
+        questionService.delete(id);
     }
 }

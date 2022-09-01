@@ -7,6 +7,8 @@ public interface QuizRepositoryInterface {
 
     List<Quiz> findAll();
 
+    List<Quiz> findAllByMaker(String makerUsername);
+
     Optional<Quiz> findById(Long id);
 
     Optional<Quiz> findByCode(String code);

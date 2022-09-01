@@ -19,7 +19,7 @@ import java.util.Optional;
 @Repository
 public class QuizRepository implements QuizRepositoryInterface{
 
-    private static final String SELECT_ALL = "SELECT id, code, name, maker_id, creation_date FROM quiz";
+    private static final String SELECT_ALL = "SELECT * FROM quiz";
 
     private final JdbcTemplate jdbc;
     private final SimpleJdbcInsert inserter;
@@ -36,6 +36,14 @@ public class QuizRepository implements QuizRepositoryInterface{
     @Override
     public List<Quiz> findAll() {
         return List.copyOf(jdbc.query(SELECT_ALL, this::mapRowToQuiz));
+    }
+
+    @Override
+    public List<Quiz> findAllByMaker(String makerUsername) {
+        return List.copyOf(jdbc.query(SELECT_ALL+
+                " LEFT JOIN users ON users.id = quiz.maker_id " +
+                "WHERE users.username = ?"
+                , this::mapRowToQuiz, makerUsername));
     }
 
     @Override

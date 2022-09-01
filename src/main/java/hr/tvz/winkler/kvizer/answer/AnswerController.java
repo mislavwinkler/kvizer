@@ -3,6 +3,7 @@ package hr.tvz.winkler.kvizer.answer;
 import hr.tvz.winkler.kvizer.question.QuestionCommand;
 import hr.tvz.winkler.kvizer.question.QuestionDTO;
 import hr.tvz.winkler.kvizer.question.QuestionService;
+import hr.tvz.winkler.kvizer.security.dto.UserDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,10 +28,21 @@ public class AnswerController {
         return answerService.findAll();
     }
 
+    @GetMapping("/quiz={quizCode}")
+//    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    public List<UserDTO> getAllUsersByQuizCode(@PathVariable final String quizCode) {
+        return answerService.findUsersByQuizCode(quizCode);
+    }
+
     @GetMapping("/{questionId}")
 //    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public List<AnswerDTO> getAnswersByQuestionId(@PathVariable final Long questionId) {
         return answerService.findAllByQuestionId(questionId);
+    }
+    @GetMapping("/{quizCode}/{username}")
+//    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    public List<AnswerDTO> getAnswersByQuizCodeAndUsername(@PathVariable final String quizCode, @PathVariable final String username) {
+        return answerService.findAllByQuizCodeAndUsername(quizCode, username);
     }
     @GetMapping("/id={id}")
 //    @Secured({"ROLE_USER", "ROLE_ADMIN"})
@@ -38,11 +50,6 @@ public class AnswerController {
         return answerService.findById(id).map(ResponseEntity::ok).orElseGet(
                 () -> ResponseEntity.notFound().build()
         );
-    }
-    @GetMapping("/user={username}")
-//    @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public List<AnswerDTO> getAnswersByUserId(@PathVariable final String username) {
-        return answerService.findAllByUserUsername(username);
     }
     @PostMapping
 //    @Secured({"ROLE_ADMIN"})
