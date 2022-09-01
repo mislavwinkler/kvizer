@@ -2,12 +2,15 @@ package hr.tvz.winkler.kvizer.security.controller;
 
 import hr.tvz.winkler.kvizer.security.command.LoginCommand;
 import hr.tvz.winkler.kvizer.security.dto.LoginDTO;
+import hr.tvz.winkler.kvizer.security.dto.UserDTO;
 import hr.tvz.winkler.kvizer.security.service.AuthenticationService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("authentication")
@@ -18,6 +21,12 @@ public class AuthenticationController {
 
     public AuthenticationController(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
+    }
+
+    @GetMapping
+    @Secured({"ROLE_ADMIN"})
+    public List<UserDTO> getAllUsers(){
+        return authenticationService.findAll();
     }
 
     @PostMapping("/login")

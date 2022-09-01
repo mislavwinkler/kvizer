@@ -62,7 +62,7 @@ public class QuestionRepository implements QuestionRepositoryInterface{
     @Override
     public Optional<Question> save(Question question) {
         try {
-            saveQuestionDetails(question);
+            question.setId(saveQuestionDetails(question));
             return Optional.of(question);
         } catch (DuplicateKeyException e){
             return Optional.empty();
@@ -105,7 +105,7 @@ public class QuestionRepository implements QuestionRepositoryInterface{
         );
     }
 
-    private String saveQuestionDetails(Question question) {
+    private Long saveQuestionDetails(Question question) {
         Map<String, Object> values = new HashMap<>();
 
         values.put("question", question.getQuestion());
@@ -114,6 +114,6 @@ public class QuestionRepository implements QuestionRepositoryInterface{
         values.put("img_path", question.getImgPath());
         values.put("quiz_id", question.getQuiz().getId());
 
-        return inserter.executeAndReturnKey(values).toString();
+        return (Long) inserter.executeAndReturnKey(values);
     }
 }

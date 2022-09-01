@@ -1,4 +1,4 @@
-package hr.tvz.winkler.kvizer.answer;
+package hr.tvz.winkler.kvizer.security.user.answer;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

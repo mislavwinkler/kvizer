@@ -1,6 +1,5 @@
-package hr.tvz.winkler.kvizer.answer;
+package hr.tvz.winkler.kvizer.security.user.answer;
 
-import hr.tvz.winkler.kvizer.question.Question;
 import hr.tvz.winkler.kvizer.security.domain.User;
 
 import java.util.List;

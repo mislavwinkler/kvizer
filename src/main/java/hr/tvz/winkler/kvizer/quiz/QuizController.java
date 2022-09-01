@@ -2,6 +2,7 @@ package hr.tvz.winkler.kvizer.quiz;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,19 +18,19 @@ public class QuizController {
     public QuizController(QuizService quizService) {this.quizService = quizService;}
 
     @GetMapping
-//    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN"})
     public List<QuizDTO> getAllQuiz(){
         return quizService.findAll();
     }
 
     @GetMapping("/maker={username}")
-//    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public List<QuizDTO> getAllQuiz(@PathVariable final String username){
         return quizService.findAllByMaker(username);
     }
 
     @GetMapping("/{code}")
-//    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<QuizDTO> getQuizByCode(@PathVariable final String code){
         return quizService.findByCode(code).map(ResponseEntity::ok).orElseGet(
                 () -> ResponseEntity.notFound().build()
@@ -37,7 +38,7 @@ public class QuizController {
     }
 
     @PostMapping
-//    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<QuizDTO> save(@Valid @RequestBody final QuizCommand quizCommand){
         return quizService.save(quizCommand)
                 .map(quizDTO -> ResponseEntity.status(HttpStatus.CREATED)
@@ -49,13 +50,13 @@ public class QuizController {
     }
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{code}")
-//    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_USER","ROLE_ADMIN"})
     public void delete (@PathVariable String code){
         quizService.delete(code);
     }
 
     @PutMapping("/{code}")
-//    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_USER","ROLE_ADMIN"})
     public ResponseEntity<QuizDTO> update(@PathVariable String code,
                                               @Valid @RequestBody final QuizCommand quizCommand){
 

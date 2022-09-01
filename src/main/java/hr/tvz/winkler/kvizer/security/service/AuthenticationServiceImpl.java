@@ -11,7 +11,9 @@ import hr.tvz.winkler.kvizer.security.repository.UserRepositoryJPA;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -24,6 +26,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         this.jwtService = jwtService;
         this.userRepository = userRepository;
         this.userRepositoryJPA = userRepositoryJPA;
+    }
+
+    @Override
+    public List<UserDTO> findAll(){
+        return userRepository.findAll().stream().map(this::mapUserToDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -55,6 +62,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return new User(registerCommand.getUsername(), BCrypt.hashpw(registerCommand.getPassword(), BCrypt.gensalt()), registerCommand.getEmail());
     }
 
+    private UserDTO mapUserToDTO(final User user) {
+        return new UserDTO(user.getUsername());
+    }
 
     private boolean isMatchingPassword(String rawPassword, String encryptedPassword) {
         return BCrypt.checkpw(rawPassword, encryptedPassword);

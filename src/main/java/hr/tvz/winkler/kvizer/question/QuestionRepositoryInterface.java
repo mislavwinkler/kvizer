@@ -1,7 +1,5 @@
 package hr.tvz.winkler.kvizer.question;
 
-import hr.tvz.winkler.kvizer.answer.Answer;
-
 import java.util.List;
 import java.util.Optional;
 
