@@ -51,11 +51,11 @@ public class QuestionService implements QuestionServiceInterface{
     }
 
     private QuestionDTO mapQuestionToDTO(Question question) {
-        return new QuestionDTO(question.getId(), question.getPosition(), question.getQuestion(), question.getAnswer(), question.getImgPath(), question.getQuiz().getCode());
+        return new QuestionDTO(question.getId(), question.getPosition(), question.getQuestion(), question.getAnswer(), question.getQuiz().getCode());
     }
 
     private Question mapQuestionCommandToQuestion(QuestionCommand questionCommand) {
         return new Question(questionCommand.getId(), questionCommand.getPosition(), questionCommand.getQuestion(),
-                questionCommand.getAnswer(), questionCommand.getImgPath(), quizRepository.findByCode(questionCommand.getquizCode()).get());
+                questionCommand.getAnswer(), quizRepository.findByCode(questionCommand.getQuizCode()).get());
     }
 }

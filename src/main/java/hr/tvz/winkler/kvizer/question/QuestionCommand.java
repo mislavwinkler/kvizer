@@ -2,7 +2,6 @@ package hr.tvz.winkler.kvizer.question;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 public class QuestionCommand {
 
@@ -18,17 +17,14 @@ public class QuestionCommand {
     @NotBlank(message = "There must be an answer")
     private String answer;
 
-    private String imgPath;
-
     @NotBlank (message = "Question must belong to a quiz")
     private String quizCode;
 
-    public QuestionCommand(Long id, Long position, String question, String answer, String imgPath, String quizCode) {
+    public QuestionCommand(Long id, Long position, String question, String answer, String quizCode) {
         this.id = id;
         this.position = position;
         this.question = question;
         this.answer = answer;
-        this.imgPath = imgPath;
         this.quizCode = quizCode;
     }
 
@@ -48,11 +44,7 @@ public class QuestionCommand {
 
     public void setAnswer(String answer) {this.answer = answer;}
 
-    public String getImgPath() {return imgPath;}
+    public String getQuizCode() {return quizCode;}
 
-    public void setImgPath(String imgPath) {this.imgPath = imgPath;}
-
-    public String getquizCode() {return quizCode;}
-
-    public void setquizCode(String quizCode) {this.quizCode = quizCode;}
+    public void setQuizCode(String quizCode) {this.quizCode = quizCode;}
 }

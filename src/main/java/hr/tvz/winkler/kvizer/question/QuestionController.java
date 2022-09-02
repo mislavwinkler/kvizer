@@ -1,9 +1,6 @@
 package hr.tvz.winkler.kvizer.question;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +16,6 @@ import java.util.List;
 @RequestMapping("question")
 @CrossOrigin(origins = "http://localhost:4200")
 public class QuestionController {
-
-    private static final Logger logger = LoggerFactory
-            .getLogger(QuestionController.class);
 
     private final QuestionService questionService;
 
@@ -62,7 +56,6 @@ public class QuestionController {
     @PutMapping
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<QuestionDTO> update(@Valid @RequestBody final QuestionCommand questionCommand){
-
         return questionService.update(questionCommand.getId(), questionCommand)
                 .map(questionDTO -> ResponseEntity.status(HttpStatus.CREATED)
                         .body(questionDTO))

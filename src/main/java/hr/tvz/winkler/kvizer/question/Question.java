@@ -13,7 +13,6 @@ public class Question {
     private Long position;
     private String question;
     private String answer;
-    private String imgPath;
 
     @ManyToOne
     @JoinColumn(name="quiz_id")
@@ -21,20 +20,11 @@ public class Question {
 
     public Question() { }
 
-    public Question(Long id, Long position, String question, String answer, String imgPath) {
+    public Question(Long id, Long position, String question, String answer, Quiz quiz) {
         this.id = id;
         this.position = position;
         this.question = question;
         this.answer = answer;
-        this.imgPath = imgPath;
-    }
-
-    public Question(Long id, Long position, String question, String answer, String imgPath, Quiz quiz) {
-        this.id = id;
-        this.position = position;
-        this.question = question;
-        this.answer = answer;
-        this.imgPath = imgPath;
         this.quiz = quiz;
     }
 
@@ -67,10 +57,6 @@ public class Question {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
-
-    public String getImgPath() {return imgPath;}
-
-    public void setImgPath(String imgPath) {this.imgPath = imgPath;}
 
     public void setQuiz(Quiz quiz) {this.quiz = quiz;}
 

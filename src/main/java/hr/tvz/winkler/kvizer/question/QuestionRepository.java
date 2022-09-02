@@ -1,6 +1,5 @@
 package hr.tvz.winkler.kvizer.question;
 
-
 import hr.tvz.winkler.kvizer.quiz.QuizRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.dao.DuplicateKeyException;
@@ -49,7 +48,6 @@ public class QuestionRepository implements QuestionRepositoryInterface{
             return Optional.empty();
         }
     }
-
 
     @Override
     public List<Question> findQuestionsByQuizCode(String quizCode) {
@@ -100,7 +98,6 @@ public class QuestionRepository implements QuestionRepositoryInterface{
                 rs.getLong("position"),
                 rs.getString("question"),
                 rs.getString("answer"),
-                rs.getString("img_path"),
                 quizRepository.findById(Long.valueOf(rs.getString("quiz_id"))).get()
         );
     }
@@ -111,7 +108,6 @@ public class QuestionRepository implements QuestionRepositoryInterface{
         values.put("question", question.getQuestion());
         values.put("answer", question.getAnswer());
         values.put("position", question.getPosition());
-        values.put("img_path", question.getImgPath());
         values.put("quiz_id", question.getQuiz().getId());
 
         return (Long) inserter.executeAndReturnKey(values);

@@ -18,22 +18,6 @@ public class QuizCommand {
     @NotBlank(message = "Quiz must have a maker")
     private String makerName;
 
-    public QuizCommand() {
-    }
-
-    public QuizCommand(String name, String code, String makerName) {
-        this.name = name;
-        this.code = code;
-        this.makerName = makerName;
-    }
-
-    public QuizCommand(String name, String code, Date creationDate, String makerName) {
-        this.name = name;
-        this.code = code;
-        this.creationDate = creationDate;
-        this.makerName = makerName;
-    }
-
     public String getName() {return name;}
 
     public void setName(String name) {this.name = name;}
