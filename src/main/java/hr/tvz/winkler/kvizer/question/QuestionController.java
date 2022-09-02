@@ -96,7 +96,7 @@ public class QuestionController {
                         new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
-                
+
                 return new ResponseEntity<>("You successfully uploaded file", HttpStatus.OK);
             } catch (Exception e) {
                 return new ResponseEntity<>("You failed to upload file", HttpStatus.BAD_REQUEST);

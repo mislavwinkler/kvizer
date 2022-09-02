@@ -26,6 +26,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     static final List<String> UNAUTHENTICATED_ENDPOINTS = List.of(
             "/authentication/login",
             "/registration",
+            "/question-photos/**",
             "/h2-console/**"
     );
 
@@ -38,7 +39,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // Disable CSRF, CORS and iframe so h2-console works
         http = http.cors().and().csrf().disable();
         http = http.headers().frameOptions().disable()
                 .and();
