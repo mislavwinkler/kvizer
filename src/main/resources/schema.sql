@@ -9,7 +9,7 @@ create table if not exists quiz (
 create table if not exists question (
     id identity,
     position bigint not null,
-    question varchar(200) not null,
+    question varchar(600) not null,
     answer varchar(100) not null,
     img_path varchar(200),
     quiz_id bigint not null,
