@@ -29,8 +29,8 @@ create table if not exists authority (
 create table if not exists user_authority (
     user_id bigint not null,
     authority_id bigint not null,
-    constraint fk_user foreign key (user_id) references users(id) ,
-    constraint fk_authority foreign key (authority_id) references authority(id)
+    constraint fk_user foreign key (user_id) references users(id) on delete cascade,
+    constraint fk_authority foreign key (authority_id) references authority(id) on delete cascade
     );
 
 

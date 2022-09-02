@@ -16,4 +16,5 @@ public interface AuthenticationService {
 
     Optional<UserDTO> save(RegisterCommand command);
 
+    void delete(String username);
 }

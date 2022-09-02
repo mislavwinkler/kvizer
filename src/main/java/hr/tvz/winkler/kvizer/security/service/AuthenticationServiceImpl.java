@@ -58,6 +58,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         );
         }
 
+    @Override
+    public void delete(String username) {
+        userRepository.delete(username);
+    }
+
     private User mapRegisterCommandToUser(RegisterCommand registerCommand) {
         return new User(registerCommand.getUsername(), BCrypt.hashpw(registerCommand.getPassword(), BCrypt.gensalt()), registerCommand.getEmail());
     }

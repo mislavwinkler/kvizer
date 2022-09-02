@@ -71,7 +71,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void delete(String username) {
-        jdbc.update("DELETE FROM user WHERE username = ?", username);
+        jdbc.update("DELETE FROM users WHERE username = ?", username);
     }
 
 
