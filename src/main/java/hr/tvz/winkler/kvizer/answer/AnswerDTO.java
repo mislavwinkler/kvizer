@@ -1,4 +1,4 @@
-package hr.tvz.winkler.kvizer.security.user.answer;
+package hr.tvz.winkler.kvizer.answer;
 
 
 public class AnswerDTO {
