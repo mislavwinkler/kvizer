@@ -28,7 +28,9 @@ insert into users(username, password, email)
 values
     ('user', '$2a$12$PWh2Tlwhmgc3V8HhnNFQke2cEVHw85ipZCX1.5aBgdJYG2i7OVNqy', 'user@email.com'), -- password = user
     ('admin', '$2a$12$INo0nbj40sQrTB7b28KJput/bNltGmFyCfRsUhvy73qcXo5/XdsTG', 'admin@email.com'), -- password = admin
-    ('pero', '$2a$12$PWh2Tlwhmgc3V8HhnNFQke2cEVHw85ipZCX1.5aBgdJYG2i7OVNqy', 'pero@email.com'); -- password = user
+    ('toni', '$2a$12$q/YPJt7yDcN.DKVxuwhu3.3hh0PhbdF1XepNHT8o5isxugxu70gwC', 'user@email.com'), -- password = toni123
+    ('ivan', '$2a$12$xBjtWv4I15I8tON0lEV4Gu3edSi77RRlzlR/p36IZ2aNO5ec1BMjO', 'user@email.com'), -- password = ivan123
+    ('marko', '$2a$12$XjOwmcjO..IU9X3ROVpkOOFinufv76McPcYQxnoCK1i1xXzlrNYEq', 'pero@email.com'); -- password = marko123
 
 insert into authority (id, authority_name)
 values

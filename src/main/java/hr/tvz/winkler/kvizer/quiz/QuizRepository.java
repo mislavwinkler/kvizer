@@ -121,11 +121,4 @@ public class QuizRepository implements QuizRepositoryInterface{
 
         return inserter.executeAndReturnKey(values).toString();
     }
-
-    @Override
-    public List<Quiz> search(String searchText) {
-        {
-            return List.copyOf(jdbc.query(SELECT_ALL + " WHERE code LIKE ?%", this::mapRowToQuiz, searchText));
-        }
-    }
 }

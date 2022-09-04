@@ -1,6 +1,5 @@
 package hr.tvz.winkler.kvizer.quiz;
 
-
 import java.util.Date;
 
 public class QuizDTO {

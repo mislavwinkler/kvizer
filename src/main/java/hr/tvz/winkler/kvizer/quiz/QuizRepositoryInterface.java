@@ -18,6 +18,4 @@ public interface QuizRepositoryInterface {
     void delete(String code);
 
     Optional<Quiz> update(String code, Quiz quiz);
-
-    List<Quiz> search(String searchText);
 }

@@ -1,6 +1,7 @@
 package hr.tvz.winkler.kvizer.security.command;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 public class RegisterCommand {
 
@@ -8,6 +9,7 @@ public class RegisterCommand {
     private String username;
 
     @NotBlank(message = "Password must not be empty")
+    @Size(min = 6, message = "Passwords must be at least 6 characters long")
     private String password;
 
     @NotBlank(message = "Email is mandatory")
