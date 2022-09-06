@@ -29,7 +29,7 @@ values
                'Vinkovci', 2),
         (4, 'Kako u fizici nazivamo pojavu međusobnog privlačenja površina dvaju tijela načinjenih od različitih tvari, ili tijela i tekućine, zbog djelovanja elektromagnetskih sila među molekulama?',
            'Adhezija', 2),
-        (5, 'Evo nas opet u Antici, točnije u Ateni. Tražimo ime velikog grčkog matematičara, koji je zadužio svjetsku znanost djelom objavljenim oko 300 gpk.. Riječ je o matematičkim spisima objavlenim u trinaest knjiga, po imenu Elementi. Do dana današnjeg, ove spise se smatra jednim od najboljih djela o matematici ikad. Kako se zvao autor Elemenata?',
+        (5, 'Evo nas opet u Antici, točnije u Ateni. Tražimo ime velikog grčkog matematičara, koji je zadužio svjetsku znanost djelom objavljenim oko 300 gpk.. Riječ je o matematičkim spisima objavljenim u trinaest knjiga, po imenu Elementi. Do dana današnjeg, ove spise se smatra jednim od najboljih djela o matematici ikad. Kako se zvao autor Elemenata?',
             'Euklid', 2),
         (6, 'Legenda kaže da je predivni lokalitet imena Odisejeva špilja točno mjesto gdje se Odisej zaljubio u Kalipso. Smještena je na jednom našem otoku. Kojem?',
          'Mljet', 2),
