@@ -19,7 +19,6 @@ create table if not exists question (
     position bigint not null,
     question varchar(600) not null,
     answer varchar(100) not null,
-    img_path varchar(200),
     quiz_id bigint not null,
     constraint fk_quiz foreign key (quiz_id) references quiz(id) on delete cascade
     );
