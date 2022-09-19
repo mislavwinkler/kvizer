@@ -35,10 +35,10 @@ public class AuthenticationController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid credentials"));
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/{username}")
-    @Secured({"ROLE_ADMIN"})
-    public void delete (@PathVariable String username){authenticationService.delete(username);
-    }
+@ResponseStatus(HttpStatus.NO_CONTENT)
+@DeleteMapping("/{username}")
+@Secured({"ROLE_ADMIN"})
+public void delete (@PathVariable String username){authenticationService.delete(username);
+}
 
 }

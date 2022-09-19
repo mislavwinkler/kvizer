@@ -25,7 +25,7 @@ public class QuizController {
 
     @GetMapping("/maker={username}")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public List<QuizDTO> getAllQuiz(@PathVariable final String username){
+    public List<QuizDTO> getAllQuizByMaker(@PathVariable final String username){
         return quizService.findAllByMaker(username);
     }
 
